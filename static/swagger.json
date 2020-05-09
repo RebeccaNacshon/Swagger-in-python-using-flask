@@ -1,0 +1,571 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Flask-Rest-User Managment"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User Request",
+      "description": "Example API for requesting and return user requests"
+    }
+  ],
+  "paths": {
+    "/request_local_user": {
+      "get": {
+        "tags": [
+          "User Local Request"
+        ],
+        "summary": "Returns user Requests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/localuserRequests"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User Local Request"
+        ],
+        "summary": "Create a new local user request system",
+        "requestBody": {
+          "description": "Local User Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/localuserRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/request_snmp_user": {
+      "get": {
+        "tags": [
+          "User SNMP Request"
+        ],
+        "summary": "Returns snmpuserRequests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/snmpuserRequests"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User SNMP Request"
+        ],
+        "summary": "Create a new user request system",
+        "requestBody": {
+          "description": "User Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/snmpuserRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/request_community_user": {
+      "get": {
+        "tags": [
+          "User Community Request"
+        ],
+        "summary": "Returns communityuserRequests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/communityuserRequests"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User Community Request"
+        ],
+        "summary": "Create a new user request system",
+        "requestBody": {
+          "description": "User Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/communityuserRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/request/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the user that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "User Request"
+        ],
+        "summary": "Get user request with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "User Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/userRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. User request not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "edit a user request by ID",
+        "tags": [
+          "User Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "User Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "User Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/localuserRequestPostBody",
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/userRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete User Request by ID",
+        "tags": [
+          "User Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "User Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. User Request not found."
+          }
+        }
+      }
+    },
+    "/request_convert_community_user/{id}/{type}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the user that we want to match",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "in": "path",
+          "required": true,
+          "description": "type of the user that we want to convert to",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "summary": "convert a community user request by ID",
+        "tags": [
+          "Convert User Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "User Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+
+          },
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "description": "User Type",
+            "schema": {
+              "$ref": "#/components/schemas/type"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+
+    },
+    "/request_convert_local_user/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the user that we want to match",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "summary": "convert a local user to snmp request by ID",
+        "tags": [
+          "Convert User Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "User Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+
+    }
+  },
+  "components": {
+    "schemas": {
+      "id": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "type": {
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "userRequest": {
+        "type": "object",
+        "properties": {
+          "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "string"
+          },
+          "type": {
+            "type": "string",
+            "format": "string"
+          },
+          "enabled": {
+            "type": "boolean",
+            "format": "boolean"
+          }
+          }
+        }
+      },
+      "snmpuserRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "password_a": {
+            "type": "string",
+            "format": "string"
+          },
+          "password_b": {
+            "type": "string",
+            "format": "string"
+          },
+          "type": {
+            "type": "string",
+            "format": "string"
+          },
+          "enabled": {
+            "type": "boolean",
+            "format": "boolean"
+          }
+        }
+      },
+      "localuserRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "string"
+          },
+          "type": {
+            "type": "string",
+            "format": "string"
+          },
+          "enabled": {
+            "type": "boolean",
+            "format": "boolean"
+          }
+        }
+      },
+      "communityuserRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "type": {
+            "type": "string",
+            "format": "community"
+          },
+          "enabled": {
+            "type": "boolean",
+            "format": "boolean"
+          }
+        }
+      },
+      "localuserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "local"
+          },
+          "password": {
+            "type": "string",
+            "format": "string"
+          },
+          "type": {
+            "type": "local",
+            "format": "number"
+          },
+          "enabled": {
+            "type": "boolean",
+            "format": "booelan"
+          }
+
+        }
+      },
+      "localuserRequests": {
+        "type": "object",
+        "properties": {
+          "userRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/localuserRequest"
+            }
+          }
+        }
+      },
+      "communityuserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "type": {
+            "type": "community",
+            "format": "number"
+          },
+          "enabled": {
+            "type": "boolean",
+            "format": "booelan"
+          }
+
+        }
+      },
+      "communityuserRequests": {
+        "type": "object",
+        "properties": {
+          "userRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/communityuserRequest"
+            }
+          }
+        }
+      },
+      "snmpuserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "password_a": {
+            "type": "string",
+            "format": "string"
+          },
+          "password_b": {
+            "type": "string",
+            "format": "string"
+          },
+          "type": {
+            "type": "snmp",
+            "format": "number"
+          },
+          "enabled": {
+            "type": "boolean",
+            "format": "booelan"
+          }
+        }
+      },
+      "snmpuserRequests": {
+        "type": "object",
+        "properties": {
+          "userRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/snmpuserRequest"
+            }
+          }
+        }
+      }
+    }
+  }
+}
